@@ -8,6 +8,6 @@ puts "Введи основание треугольника"
 triangle_base = gets.chomp.to_i
 puts "Введи высоту треугольника"
 height_base = gets.chomp.to_i
-result = triangle_base*height_base/2
+result = triangle_base * height_base / 2
 puts "Площадь треугольника равна #{result} ед²"
 
