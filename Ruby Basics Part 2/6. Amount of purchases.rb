@@ -21,8 +21,8 @@ end
 total_summ = 0
 
   list_of_purchases.each do |key, value|
-    puts "#{key}: #{value[:price]} шт #{value[:amount]} р - #{value[:price].to_i * value[:amount].to_f} р"
-    total_summ += value[:price].to_i * value[:amount].to_f
+    total_summ += summ = value[:price].to_i * value[:amount].to_f
+    puts "#{key}: #{value[:price]} шт #{value[:amount]} р - #{summ} р"
   end
 
 print "Итого: #{total_summ} р"
