@@ -147,14 +147,3 @@ class Station
   end
 end
 
-train1 = Train.new('Train 1')
-station_1 = Station.new('St1')
-station_2 = Station.new('St2')
-station_3 = Station.new('St3')
-route_1 = Route.new(station_1,station_3)
-route_1.add_station(station_2)
-train1.get_route(route_1)
-
-#
-#
-#
