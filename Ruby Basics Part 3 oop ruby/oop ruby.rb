@@ -23,11 +23,11 @@ class Train
   end
 
   def unhook_wagon
-    @amount_of_wagons -= 1  if @amount_of_wagons > 1 && @speed.zero?
+    @amount_of_wagons -= 1 if @amount_of_wagons > 1 && @speed.zero?
   end
 
   def attach_wagon
-    @amount_of_wagons += 1 if  @speed.zero?
+    @amount_of_wagons += 1 if @speed.zero?
   end
 
   def get_route(route, set = 1)
@@ -36,34 +36,35 @@ class Train
   end
 
   def move_to_next_station
+    return "Последняя станция, движение дальще невозможно" if @current_station == @route.get_stations.last
     index_next_station = @route.get_stations.index(current_station) + 1
     set_station(@route.get_stations[index_next_station])
   end
 
   def move_to_previous_station
+    return "Начальняя станция, движение на предыдущую невозможно" if @current_station == @route.get_stations.first
     index_previous_station = @route.get_stations.index(current_station) - 1
     set_station(@route.get_stations[index_previous_station])
   end
 
   def nearby_station
-     @nearby_station
+    @nearby_station
   end
 
   def send(train)
-    @direction_of_travel = 1 ? train.move_to_next_station : train.move_to_previous_station
-  end
-
-  def update_routes
-
+    @direction_of_travel == 1 ? train.move_to_next_station : train.move_to_previous_station
   end
 
   def set_station(station)
     @current_station.delete_train(self) unless @current_station.nil?
     @current_station = station
+    @direction_of_travel = if @current_station == @route.get_stations.last
+                              0
+                            elsif @current_station == @route.get_stations.first
+                              1
+                            end
     station.take_train(self)
   end
-
-
 end
 
 class Route
@@ -76,16 +77,13 @@ class Route
     @list_station.first
   end
 
-  def add_station(station,index)
+  def add_station(station,index=1)
     index = @list_station.count - 1 if index > @list_station.count - 2
     index = 1 if index < 1
-    puts @list_station.count
     @list_station.insert(index,station)
-    #update_routes_for_trains(0)
   end
 
   def get_stations
-    # @list_station.map(&:name)
     @list_station
   end
 
@@ -102,6 +100,7 @@ class Route
     end
   end
 end
+
 
 class Station
 
@@ -134,6 +133,5 @@ class Station
     @train_list.delete(train)
   end
 end
-
 
 
