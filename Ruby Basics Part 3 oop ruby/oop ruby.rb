@@ -1,5 +1,5 @@
 class Train
-  attr_reader :number, :type, :amount_of_wagons, :nearby_station, :route, :type, :current_station
+  attr_reader :number, :type, :amount_of_wagons, :route, :type, :current_station
 
   def initialize(number, type = 1, amount_of_wagons = 1)
     @number = number
@@ -36,19 +36,35 @@ class Train
   end
 
   def move_to_next_station
-    return "Последняя станция, движение дальще невозможно" if @current_station == @route.get_stations.last
-    index_next_station = @route.get_stations.index(current_station) + 1
-    set_station(@route.get_stations[index_next_station])
+    return "Последняя станция, движение дальше невозможно" if @current_station == @route.get_stations.last
+    nearby_station
+    set_station(@next_station)
   end
 
   def move_to_previous_station
     return "Начальняя станция, движение на предыдущую невозможно" if @current_station == @route.get_stations.first
-    index_previous_station = @route.get_stations.index(current_station) - 1
-    set_station(@route.get_stations[index_previous_station])
+    nearby_station
+    set_station(@previous_station)
   end
 
   def nearby_station
-    @nearby_station
+    index_currently_station = @route.get_stations.index(@current_station)
+    @next_station = @route.get_stations[index_currently_station + 1]
+    @previous_station = @route.get_stations[index_currently_station - 1]
+    print_previous = if @previous_station.nil?
+                       'отсутствует'
+                     else
+                       @previous_station.name
+                     end
+
+    print_next = if @next_station.nil?
+                       'отсутствует'
+                     else
+                       @previous_station.name
+                     end
+    "Предыдущая станция: #{print_previous}
+Текущая станция: #{@current_station.name}
+Следующая станция: #{print_next}"
   end
 
   def send(train)
