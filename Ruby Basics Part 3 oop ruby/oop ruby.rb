@@ -30,9 +30,22 @@ class Train
     @amount_of_wagons += 1 if @speed.zero?
   end
 
-  def get_route(route, set = 1)
+  def get_route(route)
     @route = route
-    set_station(@route.begin_station) if set.positive?
+    set_station(@route.begin_station)
+  end
+
+  def set_station(station)
+    @current_station.delete_train(self) unless @current_station.nil?
+    @current_station = station
+    @direction_of_travel = if @current_station == @route.get_stations.last
+                             0
+                           elsif @current_station == @route.get_stations.first
+                             1
+                           else
+                             @direction_of_travel
+                           end
+    station.take_train(self)
   end
 
   def move_to_next_station
@@ -60,7 +73,7 @@ class Train
     print_next = if @next_station.nil?
                        'отсутствует'
                      else
-                       @previous_station.name
+                       @next_station.name
                      end
     "Предыдущая станция: #{print_previous}
 Текущая станция: #{@current_station.name}
@@ -71,16 +84,6 @@ class Train
     @direction_of_travel == 1 ? train.move_to_next_station : train.move_to_previous_station
   end
 
-  def set_station(station)
-    @current_station.delete_train(self) unless @current_station.nil?
-    @current_station = station
-    @direction_of_travel = if @current_station == @route.get_stations.last
-                              0
-                            elsif @current_station == @route.get_stations.first
-                              1
-                            end
-    station.take_train(self)
-  end
 end
 
 class Route
@@ -103,18 +106,12 @@ class Route
     @list_station
   end
 
-  def remove_station(index_station)
-    @list_station.delete_at(index_station) if index_station.positive? && index_station < @list_station.count - 1
-    update_routes_for_trains(1)
+  def remove_station(station)
+    @list_station.delete(station) if station != @list_station.first && station != @list_station.last
   end
 
   private
 
-  def update_routes_for_trains(set_station = 0)
-    @list_station.each do |station|
-      train.get_route(self,set_station)
-    end
-  end
 end
 
 
@@ -150,4 +147,14 @@ class Station
   end
 end
 
+train1 = Train.new('Train 1')
+station_1 = Station.new('St1')
+station_2 = Station.new('St2')
+station_3 = Station.new('St3')
+route_1 = Route.new(station_1,station_3)
+route_1.add_station(station_2)
+train1.get_route(route_1)
 
+#
+#
+#
