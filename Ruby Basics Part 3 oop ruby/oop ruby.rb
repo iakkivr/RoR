@@ -33,19 +33,13 @@ class Train
   end
 
   def move_to_next_station
-    return "Последняя станция, движение дальше невозможно" if @current_station == @route.list_station.last
+    return unless next_station
     set_station(next_station)
   end
 
   def move_to_previous_station
-    return "Начальняя станция, движение на предыдущую невозможно" if @current_station == @route.list_station.first
+    return unless previous_station
     set_station(previous_station)
-  end
-
-  def nearby_station
-    "Предыдущая станция: #{previous_station}
-Текущая станция: #{@current_station.name}
-Следующая станция: #{next_station}"
   end
 
   def next_station
@@ -113,8 +107,7 @@ class Station
   end
 
   def trains_by_type(type)
-    "#{type}: #{@train_list.count { |elem| elem.type == type }} шт
-#{@train_list.filter{ |element| element.type == type}.map(&:number)}"
+    @train_list.filter { |elem| elem.type == type }
   end
 
   def send_train(train)
@@ -126,3 +119,4 @@ class Station
     @train_list.delete(train)
   end
 end
+
