@@ -5,8 +5,4 @@ class PassengerTrain < Train
     @type = 'pass'
   end
 
-  def attach_wagon
-    @array_wagon << PassengerWagon.new
-  end
-
 end

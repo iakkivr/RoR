@@ -1,10 +1,14 @@
 class Route
   attr_reader :list_station, :name
-  $list_routes = []
+  @@list_routes = []
   def initialize(begin_station,finish_station,name)
     @list_station = [begin_station,finish_station]
     @name = name
-    $list_routes << self
+    @@list_routes << self
+  end
+
+  def self.list_routes
+    @@list_routes
   end
 
   def begin_station

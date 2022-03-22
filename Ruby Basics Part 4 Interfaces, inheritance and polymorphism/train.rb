@@ -1,16 +1,25 @@
  class Train
   attr_reader :number, :route, :type, :current_station
   attr_accessor :speed
-  $list_trains = []
+  @@list_trains = []
   def initialize(number)
     @number = number
     @speed = 0
     @array_wagon = []
-    $list_trains << self
+    @@list_trains << self
   end
+
+  def self.list_trains
+    @@list_trains
+  end
+
 
   def stop
     @speed = 0
+  end
+
+  def attach_wagon (wagon)
+    @array_wagon << wagon
   end
 
   def unhook_wagon

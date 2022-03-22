@@ -4,8 +4,4 @@ class CargoTrain < Train
     super
     @type = 'cargo'
   end
-
-  def attach_wagon
-    @array_wagon << CargoWagon.new
-  end
 end
