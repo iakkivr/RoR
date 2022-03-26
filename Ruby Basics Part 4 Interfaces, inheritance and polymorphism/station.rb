@@ -39,9 +39,3 @@ class Station
     @train_list.delete(train)
   end
 end
-st1 = Station.new '1'
-st2 = Station.new '2'
-st3 = Station.new '3'
-st4 = Station.new '4'
-
-puts Station.instances

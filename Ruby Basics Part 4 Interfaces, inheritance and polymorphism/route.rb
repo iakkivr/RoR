@@ -29,7 +29,6 @@ class Route
     @list_station.insert(index,station)
   end
 
-
   def remove_station(station)
     @list_station.delete(station) if station != @list_station.first && station != @list_station.last
   end
