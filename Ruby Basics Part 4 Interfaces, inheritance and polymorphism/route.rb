@@ -1,10 +1,14 @@
+require_relative 'instance_counter'
+
 class Route
+  include InstanceCounter
   attr_reader :list_station, :name
   @@list_routes = []
-  def initialize(begin_station,finish_station,name)
-    @list_station = [begin_station,finish_station]
+  def initialize(begin_station, finish_station, name)
+    @list_station = [begin_station, finish_station]
     @name = name
     @@list_routes << self
+    self.register_instance
   end
 
   def self.list_routes
@@ -29,5 +33,5 @@ class Route
   def remove_station(station)
     @list_station.delete(station) if station != @list_station.first && station != @list_station.last
   end
-
 end
+

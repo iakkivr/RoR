@@ -1,13 +1,25 @@
- class Train
+require_relative 'manufacturer'
+require_relative 'instance_counter'
+
+
+
+
+class Train
+  include Manufacturer
+  include InstanceCounter
+
   attr_reader :number, :route, :type, :current_station
   attr_accessor :speed
   @@list_trains = []
+
   def initialize(number)
     @number = number
     @speed = 0
     @array_wagon = []
     @@list_trains << self
+    self.register_instance
   end
+
 
   def self.list_trains
     @@list_trains
@@ -51,8 +63,11 @@
     @route.list_station[index_currently_station - 1]
   end
 
-  protected # данные методыд не должны вызываться из вне. Использую их только для работы публичных методов
+  def find(number)
+    @@list_trains.filter { |train| train.number == number }
+  end
 
+  protected # данные методыд не должны вызываться из вне. Использую их только для работы публичных методов
   def set_station(station)
     @current_station.delete_train(self) unless @current_station.nil?
     @current_station = station
@@ -62,5 +77,4 @@
   def index_currently_station
     @route.list_station.index(@current_station)
   end
-
 end

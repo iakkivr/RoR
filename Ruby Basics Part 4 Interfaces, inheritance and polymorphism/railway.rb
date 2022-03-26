@@ -27,13 +27,13 @@ class Railway
     name = gets.chomp
 
     puts "Введи номер начальной станции маршрута: (порядковый номер начиная с 1"
-    puts Station.list_stations.map(&:name)
+    puts Station.all.map(&:name)
     start_station = gets.chomp.to_i - 1
 
     puts "Введи номер конечной станции маршрута:"
-    puts Station.list_stations.map(&:name)
+    puts Station.all.map(&:name)
     end_station = gets.chomp.to_i - 1
-    $list_routes << Route.new(Station.list_stations[start_station],Station.list_stations[end_station],name)
+    Route.new(Station.all[start_station],Station.all[end_station],name)
   end
 
   def edit_route
@@ -48,7 +48,7 @@ class Railway
         route.remove_station(route.list_station[gets.chomp.to_i - 1 ])
       when "add"
         puts "Выберите станцию для добавления"
-        available_stations = Station.list_stations - route.list_station
+        available_stations = Station.all - route.list_station
         puts (available_stations.map(&:name))
         route.add_station(available_stations[gets.chomp.to_i - 1 ])
       else
@@ -87,7 +87,7 @@ class Railway
   end
 
   def list_trains_on_stations
-    Station.list_stations.each do |station|
+    Station.all.each do |station|
       puts station.name
       puts station.trains_at_station
     end
