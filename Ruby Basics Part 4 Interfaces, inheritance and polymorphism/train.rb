@@ -60,8 +60,8 @@ class Train
     @route.list_station[index_currently_station - 1]
   end
 
-  def find(number)
-    @@list_trains.filter { |train| train.number == number }
+  def self.find(number)
+    @@list_trains.find { |train| train.number == number }
   end
 
   protected # данные методыд не должны вызываться из вне. Использую их только для работы публичных методов
@@ -75,3 +75,6 @@ class Train
     @route.list_station.index(@current_station)
   end
 end
+
+
+
