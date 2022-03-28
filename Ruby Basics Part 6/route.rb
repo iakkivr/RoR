@@ -7,9 +7,9 @@ class Route
   def initialize(begin_station, finish_station, name)
     @list_station = [begin_station, finish_station]
     @name = name.to_s
-    @@list_routes << self
     self.register_instance
     validate!
+    @@list_routes << self
   end
 
   def validate!
