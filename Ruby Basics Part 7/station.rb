@@ -13,10 +13,6 @@ class Station
     self.register_instance
   end
 
-  def validate!
-    raise "Имя должно быть не менее 3 символов" if name.length < 3
-  end
-
   def valid?
     validate!
     true
@@ -56,4 +52,9 @@ class Station
   def delete_train(train)
     @train_list.delete(train)
   end
+
+  def validate!
+    raise "Имя должно быть не менее 3 символов" if name.length < 3
+  end
+
 end

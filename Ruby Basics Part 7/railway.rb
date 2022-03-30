@@ -98,12 +98,6 @@ class Railway
     fill_wagon(wagon)
   end
 
-  def train_selection
-    puts "Выберите поезд:"
-    puts  Train.list_trains.map(&:number)
-    Train.list_trains[take_number]
-  end
-
   def interface_train_on_station
     print_trains_on_station(station_selection)
   end
@@ -112,16 +106,11 @@ class Railway
     print_wagons_in_train(train_selection)
   end
 
+  protected
   def wagon_selection(train)
     puts "Выберите вагон:"
     puts  train.array_wagon
     train.array_wagon[take_number]
-  end
-
-  def station_selection
-    puts "Выберите станцию"
-    puts Station.all.map(&:name)
-    Station.all[take_number]
   end
 
   def fill_wagon(wagon)
@@ -136,17 +125,6 @@ class Railway
     end
   end
 
-  def take_number
-    gets.chomp.to_i - 1
-  end
-
-
-  def print_trains_on_station(station)
-      station.receive_trains do |train|
-        puts "  #{train.number} #{train.type} #{train.count_wagon}"
-      end
-  end
-
   def print_wagons_in_train(train)
     index_wagon = 1
     train.receive_wagons do |wagon|
@@ -155,5 +133,27 @@ class Railway
     end
   end
 
+  def take_number
+    gets.chomp.to_i - 1
+  end
+
+  def print_trains_on_station(station)
+    station.receive_trains do |train|
+      puts "  #{train.number} #{train.type} #{train.count_wagon}"
+    end
+  end
+
+
+  def station_selection
+    puts "Выберите станцию"
+    puts Station.all.map(&:name)
+    Station.all[take_number]
+  end
+
+  def train_selection
+    puts "Выберите поезд:"
+    puts  Train.list_trains.map(&:number)
+    Train.list_trains[take_number]
+  end
 end
 

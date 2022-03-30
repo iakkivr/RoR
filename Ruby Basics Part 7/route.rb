@@ -12,11 +12,6 @@ class Route
     @@list_routes << self
   end
 
-  def validate!
-    raise "Для создания маршрута требуется указать станции" unless begin_station.is_a?(Station) && finish_station.is_a?(Station)
-    raise "Имя должно быть длинее 3 символов" if name.length < 3
-  end
-
   def valid?
     validate!
     true
@@ -45,4 +40,12 @@ class Route
   def remove_station(station)
     @list_station.delete(station) if station != @list_station.first && station != @list_station.last
   end
+
+  protected
+
+  def validate!
+    raise "Для создания маршрута требуется указать станции" unless begin_station.is_a?(Station) && finish_station.is_a?(Station)
+    raise "Имя должно быть длинее 3 символов" if name.length < 3
+  end
+
 end

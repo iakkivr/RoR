@@ -19,11 +19,6 @@ class Train
     self.register_instance
   end
 
-  def validate!
-    raise "Номер поезда имеет неправильный формат. Введи ###-##" if number !~ /^[а-яА-Яa-zA-Z\d]{3}-?[a-zA-Z\d]{2}$/
-    raise "Неправильный тип поезда. Пассажирский - <pass>. Грузовой - <cargo>." unless ["pass","cargo"].include?(type)
-  end
-
   def count_wagon
     @array_wagon.count
   end
@@ -93,6 +88,11 @@ class Train
     @current_station.delete_train(self) unless @current_station.nil?
     @current_station = station
     station.take_train(self)
+  end
+
+  def validate!
+    raise "Номер поезда имеет неправильный формат. Введи ###-##" if number !~ /^[а-яА-Яa-zA-Z\d]{3}-?[a-zA-Z\d]{2}$/
+    raise "Неправильный тип поезда. Пассажирский - <pass>. Грузовой - <cargo>." unless ["pass","cargo"].include?(type)
   end
 
   def index_currently_station
