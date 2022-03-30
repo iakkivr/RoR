@@ -4,3 +4,4 @@ class PassengerWagon < Wagon
     @type = "pass"
   end
 end
+
