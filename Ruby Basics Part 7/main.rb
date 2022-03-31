@@ -56,45 +56,45 @@ class Interface
     station_2 = Station.new('Симферополь')
     station_1.take_train(train_p_1)
     station_1.take_train(train_c_1)
-    route_1 = Route.new(station_1, station_2, 'Evpa - Simf speed')
+    Route.new(station_1, station_2, 'Evpa - Simf speed')
   end
 
   def self.wait_command
     loop do
       case gets.chomp
-        when 'create_railway'
-          @railway = Railway.new
-          puts 'Железная дорога создана.'
-        when 'create_train'
-          @railway.create_train
-        when 'create_route'
-          @railway.create_route
-        when 'edit_route'
-          @railway.edit_route
-        when 'assign_route'
-          @railway.assign_route
-        when 'attach_wagon'
-          @railway.attach_wagon
-        when 'unhook_wagon'
-          @railway.unhook_wagon
-        when 'next_station'
-          @railway.next_station
-        when 'previous_station'
-          @railway.previous_station
-        when 'list_trains_on_stations'
-          @railway.list_trains_on_stations
-        when 'info'
-          puts @command_info
-        when 'list_trains_on_stations_detail'
-          @railway.interface_train_on_station
-        when 'list_wagons_in_trains'
-          @railway.interface_wagons_in_train
-        when 'fill_wagon'
-          @railway.fill_wagon_interface
-        when 'stop'
-          break
-        else
-          'Команда не найдена. Попробуй ввести заново.'
+      when 'create_railway'
+        @railway = Railway.new
+        puts 'Железная дорога создана.'
+      when 'create_train'
+        @railway.create_train
+      when 'create_route'
+        @railway.create_route
+      when 'edit_route'
+        @railway.edit_route
+      when 'assign_route'
+        @railway.assign_route
+      when 'attach_wagon'
+        @railway.attach_wagon
+      when 'unhook_wagon'
+        @railway.unhook_wagon
+      when 'next_station'
+        @railway.next_station
+      when 'previous_station'
+        @railway.previous_station
+      when 'list_trains_on_stations'
+        @railway.list_trains_on_stations
+      when 'info'
+        puts @command_info
+      when 'list_trains_on_stations_detail'
+        @railway.interface_train_on_station
+      when 'list_wagons_in_trains'
+        @railway.interface_wagons_in_train
+      when 'fill_wagon'
+        @railway.fill_wagon_interface
+      when 'stop'
+        break
+      else
+        'Команда не найдена. Попробуй ввести заново.'
       end
     end
   end

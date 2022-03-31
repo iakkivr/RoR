@@ -17,7 +17,6 @@ class Railway
     rescue StandardError => e
       puts e.message
       retry
-    end
     puts "Поезд #{type_train} с номером #{number_train} создан"
   end
 
