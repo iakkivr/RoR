@@ -1,9 +1,11 @@
-puts "Введи коэффициенты a,b и c через пробел"
-coefficients = gets.chomp.split(" ").map(&:to_i)
+# frozen_string_literal: true
+
+puts 'Введи коэффициенты a,b и c через пробел'
+coefficients = gets.chomp.split(' ').map(&:to_i)
 discriminant = coefficients[1]**2 - 4 * coefficients[0] * coefficients[2]
 
 if discriminant.negative?
-  puts  "Решение отсутсвует, корней нет"
+  puts 'Решение отсутсвует, корней нет'
 elsif discriminant.zero?
   result1 = -coefficients[1] / (2 * coefficients[0])
   puts "D = 0, корень1 = #{result1}"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 
 class Station
@@ -10,13 +12,13 @@ class Station
     validate!
     @train_list = []
     @@list_stations << self
-    self.register_instance
+    register_instance
   end
 
   def valid?
     validate!
     true
-  rescue
+  rescue StandardError
     false
   end
 
@@ -29,7 +31,6 @@ class Station
   def self.all
     @@list_stations
   end
-
 
   def take_train(train)
     @train_list << train
@@ -49,12 +50,12 @@ class Station
   end
 
   protected
+
   def delete_train(train)
     @train_list.delete(train)
   end
 
   def validate!
-    raise "Имя должно быть не менее 3 символов" if name.length < 3
+    raise 'Имя должно быть не менее 3 символов' if name.length < 3
   end
-
 end

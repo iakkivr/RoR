@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'train'
 class Railway
   def create_station
     puts 'Введи наименование станции'
@@ -9,16 +8,20 @@ class Railway
   end
 
   def create_train
-    begin
-      puts 'Введи номер поезда (формат строки ###-##)'
-      number_train = gets.chomp
-      puts 'Введи тип поезда <pass> - пассажирский, <cargo> - грузовой. '
-      type_train = gets.chomp
-      Train.new(number_train, type_train)
-    rescue Exception => e
-      puts e.message
-      retry
+    puts 'Введи номер поезда (произвольная строка)'
+    number_train = gets.chomp
+    puts 'Введи тип поезда pass - пассажирский, cargo - грузовой. '
+    type_train = gets.chomp
+
+    case type_train
+    when 'pass'
+      PassengerTrain.new(number_train)
+    when 'cargo'
+      CargoTrain.new(number_train)
+    else
+      return puts 'Указан неправильный тип поезда'
     end
+
     puts "Поезд #{type_train} с номером #{number_train} создан"
   end
 

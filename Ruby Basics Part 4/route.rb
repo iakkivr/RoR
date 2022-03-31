@@ -1,14 +1,17 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 
 class Route
   include InstanceCounter
   attr_reader :list_station, :name
+
   @@list_routes = []
   def initialize(begin_station, finish_station, name)
     @list_station = [begin_station, finish_station]
     @name = name
     @@list_routes << self
-    self.register_instance
+    register_instance
   end
 
   def self.list_routes
@@ -23,14 +26,13 @@ class Route
     @list_station.last
   end
 
-  def add_station(station,index=1)
+  def add_station(station, index = 1)
     index = @list_station.count - 1 if index > @list_station.count - 2
     index = 1 if index < 1
-    @list_station.insert(index,station)
+    @list_station.insert(index, station)
   end
 
   def remove_station(station)
     @list_station.delete(station) if station != @list_station.first && station != @list_station.last
   end
 end
-

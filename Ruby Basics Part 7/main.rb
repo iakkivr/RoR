@@ -1,15 +1,17 @@
-require_relative 'route.rb'
-require_relative 'station.rb'
-require_relative 'train.rb'
-require_relative 'train_cargo.rb'
-require_relative 'train_pass.rb'
-require_relative 'wagon.rb'
-require_relative 'wagon_cargo.rb'
-require_relative 'wagon_pass.rb'
-require_relative 'railway.rb'
+# frozen_string_literal: true
+
+require_relative 'route'
+require_relative 'station'
+require_relative 'train'
+require_relative 'train_cargo'
+require_relative 'train_pass'
+require_relative 'wagon'
+require_relative 'wagon_cargo'
+require_relative 'wagon_pass'
+require_relative 'railway'
 
 class Interface
-    @command_info = "Список досутпных команд:
+  @command_info = "Список досутпных команд:
   create_railway - создать железную дорогу.
   create_station - создать станцию.
   create_train - создать поезд.
@@ -28,9 +30,8 @@ class Interface
   list_wagons_in_trains - подробная информация о вагонах поезда
   info - получить список команд
   stop - для выхода"
-
   def self.start
-    puts  @command_info
+    puts @command_info
     wait_command
   end
 
@@ -43,62 +44,61 @@ class Interface
     5.times { wagon_p_1.take_seat }
     wagon_p_2 = PassengerWagon.new(150)
     wagon_p_3 = PassengerWagon.new(100)
-    train_p_1 = PassengerTrain.new ("pas-01")
-    train_c_1 = CargoTrain.new ("crg-01")
+    train_p_1 = PassengerTrain.new('pas-01')
+    train_c_1 = CargoTrain.new('crg-01')
     train_c_1.attach_wagon(wagon_c_1)
     train_c_1.attach_wagon(wagon_c_2)
     train_c_1.attach_wagon(wagon_c_3)
     train_p_1.attach_wagon(wagon_p_1)
     train_p_1.attach_wagon(wagon_p_2)
     train_p_1.attach_wagon(wagon_p_3)
-    station_1 = Station.new("Евпатория")
+    station_1 = Station.new('Евпатория')
+    station_2 = Station.new('Симферополь')
     station_1.take_train(train_p_1)
     station_1.take_train(train_c_1)
+    route_1 = Route.new(station_1, station_2, 'Evpa - Simf speed')
   end
 
   def self.wait_command
     loop do
       case gets.chomp
-        when "create_railway"
+        when 'create_railway'
           @railway = Railway.new
-          puts "Железная дорога создана."
-        when "create_train"
+          puts 'Железная дорога создана.'
+        when 'create_train'
           @railway.create_train
-        when "create_route"
+        when 'create_route'
           @railway.create_route
-        when "edit_route"
+        when 'edit_route'
           @railway.edit_route
-        when "assign_route"
+        when 'assign_route'
           @railway.assign_route
-        when "attach_wagon"
+        when 'attach_wagon'
           @railway.attach_wagon
-        when "unhook_wagon"
+        when 'unhook_wagon'
           @railway.unhook_wagon
-        when "next_station"
+        when 'next_station'
           @railway.next_station
-        when "previous_station"
+        when 'previous_station'
           @railway.previous_station
-        when "list_trains_on_stations"
+        when 'list_trains_on_stations'
           @railway.list_trains_on_stations
-        when "info"
+        when 'info'
           puts @command_info
-        when "list_trains_on_stations_detail"
+        when 'list_trains_on_stations_detail'
           @railway.interface_train_on_station
-        when "list_wagons_in_trains"
+        when 'list_wagons_in_trains'
           @railway.interface_wagons_in_train
-        when "fill_wagon"
+        when 'fill_wagon'
           @railway.fill_wagon_interface
-        when "stop"
+        when 'stop'
           break
         else
-          "Команда не найдена. Попробуй ввести заново."
+          'Команда не найдена. Попробуй ввести заново.'
       end
     end
   end
-  end
-
-
-
+end
 
 puts 'Программа управления железной дорогой. Для начала требуется создать железную дорогу.'
 Interface.generate

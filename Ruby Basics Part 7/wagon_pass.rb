@@ -1,10 +1,13 @@
-require_relative 'wagon.rb'
-class PassengerWagon < Wagon
+# frozen_string_literal: true
 
+require_relative 'wagon'
+class PassengerWagon < Wagon
   attr_reader :busy_seat
+
   def initialize(total_seat)
+    super
     @busy_seat = 0
-    @type = "pass"
+    @type = 'pass'
     @total_seat = total_seat
   end
 

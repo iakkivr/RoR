@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 
 class Station
@@ -9,13 +11,12 @@ class Station
     @name = name
     @train_list = []
     @@list_stations << self
-    self.register_instance
+    register_instance
   end
 
   def self.all
     @@list_stations
   end
-
 
   def take_train(train)
     @train_list << train
@@ -35,6 +36,7 @@ class Station
   end
 
   protected
+
   def delete_train(train)
     @train_list.delete(train)
   end
