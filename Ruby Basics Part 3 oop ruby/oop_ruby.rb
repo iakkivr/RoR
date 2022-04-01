@@ -1,7 +1,7 @@
-# frozen_string_literal: true
-
 class Train
+  # rubocop:disable all
   attr_reader :number, :type, :amount_of_wagons, :route, :type, :current_station
+  # rubocop:enable all
   attr_accessor :speed
 
   def initialize(number, type = 1, amount_of_wagons = 1)
@@ -25,10 +25,10 @@ class Train
 
   def assign_route(route)
     @route = route
-    set_station(@route.begin_station)
+    indicate_station(@route.begin_station)
   end
 
-  def set_station(station)
+  def indicate_station(station)
     @current_station&.delete_train(self)
     @current_station = station
     station.take_train(self)
@@ -37,13 +37,13 @@ class Train
   def move_to_next_station
     return unless next_station
 
-    set_station(next_station)
+    indicate_station(next_station)
   end
 
   def move_to_previous_station
     return unless previous_station
 
-    set_station(previous_station)
+    indicate_station(previous_station)
   end
 
   def next_station

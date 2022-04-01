@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'route'
 require_relative 'station'
 require_relative 'train'
@@ -34,29 +32,29 @@ class Interface
     puts @command_info
     wait_command
   end
-
+  # rubocop:disable all
   def self.generate
-    wagon_c_1 = CargoWagon.new(500)
-    wagon_c_2 = CargoWagon.new(400)
-    wagon_c_3 = CargoWagon.new(300)
-    wagon_c_2.take_volume(200)
-    wagon_p_1 = PassengerWagon.new(200)
-    5.times { wagon_p_1.take_seat }
-    wagon_p_2 = PassengerWagon.new(150)
-    wagon_p_3 = PassengerWagon.new(100)
-    train_p_1 = PassengerTrain.new('pas-01')
-    train_c_1 = CargoTrain.new('crg-01')
-    train_c_1.attach_wagon(wagon_c_1)
-    train_c_1.attach_wagon(wagon_c_2)
-    train_c_1.attach_wagon(wagon_c_3)
-    train_p_1.attach_wagon(wagon_p_1)
-    train_p_1.attach_wagon(wagon_p_2)
-    train_p_1.attach_wagon(wagon_p_3)
-    station_1 = Station.new('Евпатория')
-    station_2 = Station.new('Симферополь')
-    station_1.take_train(train_p_1)
-    station_1.take_train(train_c_1)
-    Route.new(station_1, station_2, 'Evpa - Simf speed')
+    wagon_c1 = CargoWagon.new(500)
+    wagon_c2 = CargoWagon.new(400)
+    wagon_c3 = CargoWagon.new(300)
+    wagon_c2.take_volume(200)
+    wagon_p1 = PassengerWagon.new(200)
+    5.times { wagon_p1.take_seat }
+    wagon_p2 = PassengerWagon.new(150)
+    wagon_p3 = PassengerWagon.new(100)
+    train_p1 = PassengerTrain.new('pas-01')
+    train_c1 = CargoTrain.new('crg-01')
+    train_c1.attach_wagon(wagon_c1)
+    train_c1.attach_wagon(wagon_c2)
+    train_c1.attach_wagon(wagon_c3)
+    train_p1.attach_wagon(wagon_p1)
+    train_p1.attach_wagon(wagon_p2)
+    train_p1.attach_wagon(wagon_p3)
+    station1 = Station.new('Евпатория')
+    station2 = Station.new('Симферополь')
+    station1.take_train(train_p1)
+    station1.take_train(train_c1)
+    Route.new(station1, station2, 'City1 - City2 speed')
   end
 
   def self.wait_command
@@ -103,3 +101,5 @@ end
 puts 'Программа управления железной дорогой. Для начала требуется создать железную дорогу.'
 Interface.generate
 Interface.start
+
+# rubocop:enable all

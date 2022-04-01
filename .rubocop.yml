@@ -1,0 +1,55 @@
+Style/Documentation:
+  Enabled: false
+
+Style/ClassVars:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+  - 'Ruby Basics Part 4/*'
+  - 'Ruby Basics Part 6/*'
+
+Layout/LineLength:
+  Max: 120
+  IgnoredPatterns: ['(\A|\s)#']
+
+Metrics/AbcSize:
+  Max: 35
+  Exclude:
+    - 'lib/assets/ts_fixtures.rb'
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/BlockLength:
+  Exclude:
+    - 'app/admin/**/*'
+    - 'lib/tasks/**/*'
+    - 'spec/**/*'
+    - 'config/environments/**/*'
+    - 'config/routes.rb'
+
+Style/MixinUsage:
+  Exclude:
+    - 'spec/factories/**/*'
+
+Metrics/ParameterLists:
+  Max: 6
+
+Metrics/CyclomaticComplexity:
+  Max: 7
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true

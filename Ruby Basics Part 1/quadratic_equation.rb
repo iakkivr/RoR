@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 puts 'Введи коэффициенты a,b и c через пробел'
 coefficients = gets.chomp.split(' ').map(&:to_i)
 discriminant = coefficients[1]**2 - 4 * coefficients[0] * coefficients[2]

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'train'
 class Railway
   def create_station
@@ -9,15 +7,17 @@ class Railway
   end
 
   def create_train
-      puts 'Введи номер поезда (формат строки ###-##)'
-      number_train = gets.chomp
-      puts 'Введи тип поезда <pass> - пассажирский, <cargo> - грузовой. '
-      type_train = gets.chomp
-      Train.new(number_train, type_train)
-    rescue StandardError => e
-      puts e.message
-      retry
-    puts "Поезд #{type_train} с номером #{number_train} создан"
+    puts 'Введи номер поезда (формат строки ###-##)'
+    number_train = gets.chomp
+    puts 'Введи тип поезда <pass> - пассажирский, <cargo> - грузовой. '
+    type_train = gets.chomp
+    Train.new(number_train, type_train)
+    # rubocop:disable all
+  rescue Exception => e
+    puts e.message
+    retry
+    puts "Train #{type_train} #{number_train} create"
+    # rubocop:enable all
   end
 
   def create_route
@@ -55,16 +55,17 @@ class Railway
     train = train_selection
     wagon = if train.type == 'pass'
               puts 'Введи количество меств вагоне'
-              PassengerWagon.new(gets.chomp)
+              PassengerWagon.new(gets.chomp.to_i)
             else
               puts 'Введи объем грузового вагона'
-              CargoWagon.new(gets.chomp)
+              CargoWagon.new(gets.chomp.to_i)
             end
     train.attach_wagon(wagon)
   end
 
   def unhook_wagon
     train_selection.unhook_wagon
+    puts 'Вагон был отцеплен'
   end
 
   def next_station
@@ -132,8 +133,8 @@ class Railway
   def print_wagons_in_train(train)
     index_wagon = 1
     train.receive_wagons do |wagon|
-      puts "    #{index_wagon} #{wagon.type} #{wagon.type == 'cargo' ? wagon.free_volume : wagon.free_seat}
-/ #{wagon.type == 'cargo' ? wagon.fill_volume : wagon.busy_seat}"
+      puts "    #{index_wagon} #{wagon.type} #{wagon.type == 'cargo' ? wagon.free_volume : wagon.free_seat}" \
+             "/ #{wagon.type == 'cargo' ? wagon.fill_volume : wagon.busy_seat}"
       index_wagon += 1
     end
   end

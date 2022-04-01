@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 result_array = [0, 1]
 loop do
   next_value = result_array[-2] + result_array[-1]
