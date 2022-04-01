@@ -16,8 +16,6 @@ Layout/LineLength:
 
 Metrics/AbcSize:
   Max: 35
-  Exclude:
-    - 'lib/assets/ts_fixtures.rb'
 
 Metrics/MethodLength:
   CountComments: false
@@ -25,18 +23,6 @@ Metrics/MethodLength:
 
 Metrics/ClassLength:
   Max: 150
-
-Metrics/BlockLength:
-  Exclude:
-    - 'app/admin/**/*'
-    - 'lib/tasks/**/*'
-    - 'spec/**/*'
-    - 'config/environments/**/*'
-    - 'config/routes.rb'
-
-Style/MixinUsage:
-  Exclude:
-    - 'spec/factories/**/*'
 
 Metrics/ParameterLists:
   Max: 6
@@ -49,7 +35,9 @@ Style/FrozenStringLiteralComment:
 
 Style/HashEachMethods:
   Enabled: true
+
 Style/HashTransformKeys:
   Enabled: true
+
 Style/HashTransformValues:
   Enabled: true
