@@ -9,7 +9,7 @@ AllCops:
   Exclude:
   - 'Ruby Basics Part 4/*'
   - 'Ruby Basics Part 6/*'
-
+  - 'Ruby Basics Part 7/*'
 Layout/LineLength:
   Max: 120
   IgnoredPatterns: ['(\A|\s)#']
