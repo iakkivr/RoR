@@ -103,3 +103,4 @@ Interface.generate
 Interface.start
 
 # rubocop:enable all
+♦

@@ -1,33 +1,45 @@
 module Validation
   def self.included(base)
     base.extend ClassMethods
-    base.include InstanceMethods
+    base.send :include, InstanceMethods
   end
 
   module ClassMethods
-    #rubocop:disable all
-    def validate(*args)
-      return raise "Значение пустое" if args[1] == :presence && (args[0].nil? || args[0].empty?)
-      return raise "Неверный формат" if args[1] == :format && args[0] !~ args[2]
-      return raise "Нет соответсвия классу" if args[1] == :type && !(args[0].is_a?(args[2]))
+     attr_reader :types
+    def validate(name, type_method, *args)
+      @types ||= []
+      @types << { name: name, type_method: type_method, args: args }
     end
-
-    #rubocop:enable all
   end
 
   module InstanceMethods
-    def valid?(*args)
-      validate!(*args)
+    def validate!
+      self.class.types.each do |variable|
+        value = instance_variable_get("@#{variable[:name]}")
+        presence(value) if variable[:type_method] == :presence
+        format(value, variable[:args]) if variable[:type_method] == :format
+        type(value, variable[:args].first) if variable[:type_method] == :type
+        #   send variable[:type_method], variable[:name], value, variable[:args]
+      end
+    end
+
+    def valid?
+      validate!
       true
     rescue Exception
       false
     end
 
-    private
+    def presence(value)
+      raise "Presence Error" if value.nil? || value.to_s.empty?
+    end
 
-    def validate!(*args)
-      self.class.validate(*args)
+    def format(value, format)
+      raise "Format error" if value !~ format[0]
+    end
+
+    def type(name, type_class)
+      raise "Class Error" unless name.is_a?(type_class)
     end
   end
 end
-
